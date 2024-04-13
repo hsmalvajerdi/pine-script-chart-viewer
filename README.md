@@ -2,7 +2,8 @@
 Display your custom charts exported from anywhere in TradingView.
 
 ## Test
-Download `script.pine` and put your candles on `candles`:
+- Hide main chart
+- Download `script.pine` and put your candles on `candles`:
 <br>`var Candle[] candles = array.from(...)`
 
 <br>For instance:
