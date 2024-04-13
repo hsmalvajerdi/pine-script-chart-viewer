@@ -13,3 +13,6 @@ Download `script.pine` and put your candles on `candles`:
 
 <br>Screenshot:
 ![screenshot](https://github.com/hsmalvajerdi/pine-script-chart-viewer/blob/master/screenshot.png?raw=true)
+
+<br>Tradingview link:
+<br>`https://www.tradingview.com/script/dQLsHoIx-Pine-Script-Chart-Viewer/`
