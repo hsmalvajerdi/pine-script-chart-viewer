@@ -1,0 +1,31 @@
+// This Pine Script™ code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © hsmalvajerdi
+
+//@version=5
+indicator("Chart Viewer", overlay = true)
+
+type Candle
+    float _open = na
+    float _high = na
+    float _low = na
+    float _close = na
+
+// ===================================================== Your Array =====================================================
+var Candle[] candles = array.from(Candle.new(2.0, 4.0, 1.0, 3.0), Candle.new(3.0, 5.0, 2.0, 4.0))
+// ======================================================================================================================
+
+var candles_length = candles.size()
+
+candle = Candle.new()
+candle_color = color.gray
+if bar_index < candles_length
+    candle := candles.get(bar_index)
+
+_open = candle._open
+_high = candle._high
+_low = candle._low
+_close = candle._close
+
+candle_color := _open < close ? color.green : (_open == close ? color.gray : color.red)
+
+plotcandle(open = _open, high = _high, low = _low, close = _close, title = "Test CHart", color = candle_color, bordercolor = candle_color, wickcolor = candle_color)
