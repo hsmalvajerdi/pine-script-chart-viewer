@@ -13,7 +13,7 @@ Display your custom charts exported from anywhere in TradingView.
 <br>`Candle.new(open_1, high_1, low_1, close_1)`
 
 <br>Screenshot:
-![screenshot](https://github.com/hsmalvajerdi/pine-script-chart-viewer/blob/master/screenshot.png?raw=true)
+![screenshot](./screenshot.png?raw=true)
 
 <br>Tradingview link:
 <br>https://www.tradingview.com/script/dQLsHoIx-Pine-Script-Chart-Viewer/
