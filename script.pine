@@ -26,6 +26,9 @@ _high = candle._high
 _low = candle._low
 _close = candle._close
 
-candle_color := _open < close ? color.green : (_open == close ? color.gray : color.red)
+is_green = _open < _close
+is_gray = _open == _close
+is_red = not (is_green or is_gray)
+candle_color := is_green ? color.green : (is_gray ? color.gray : color.red)
 
-plotcandle(open = _open, high = _high, low = _low, close = _close, title = "Test CHart", color = candle_color, bordercolor = candle_color, wickcolor = candle_color)
+plotcandle(open = _open, high = _high, low = _low, close = _close, title = "Chart", color = candle_color, bordercolor = candle_color, wickcolor = candle_color)
