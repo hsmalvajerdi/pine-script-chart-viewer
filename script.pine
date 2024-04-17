@@ -1,19 +1,30 @@
-// This Pine Script™ code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+﻿// This Pine Script™ code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
 // © hsmalvajerdi
 
 //@version=5
 indicator("Chart Viewer", overlay = true)
 
+// ===================================================== Definitions =====================================================
 type Candle
     float _open = na
     float _high = na
     float _low = na
     float _close = na
 
-// ===================================================== Your Array =====================================================
-var Candle[] candles = array.from(Candle.new(2.0, 4.0, 1.0, 3.0), Candle.new(3.0, 5.0, 2.0, 4.0))
+type Order
+    int left = na
+    int right = na
+    float green_value = na
+    float middle_value = na
+    float red_value = na
 // ======================================================================================================================
 
+// ===================================================== Your Array =====================================================
+var Candle[] candles = array.from(Candle.new(2.0, 4.0, 1.0, 3.0), Candle.new(3.0, 5.0, 2.0, 4.0))
+var Order[] orders = array.from(Order.new(1, 4, 5.4, 1.5, 1), Order.new(6, 8, 1, 2.5, 3))
+// ======================================================================================================================
+
+// ==================================================== Plot Candles ====================================================
 var candles_length = candles.size()
 
 candle = Candle.new()
@@ -32,3 +43,31 @@ is_red = not (is_green or is_gray)
 candle_color := is_green ? color.green : (is_gray ? color.gray : color.red)
 
 plotcandle(open = _open, high = _high, low = _low, close = _close, title = "Chart", color = candle_color, bordercolor = candle_color, wickcolor = candle_color)
+// ======================================================================================================================
+
+// ==================================================== Plot Orders =====================================================
+type OrderElement
+    box g_box = na
+    box r_box = na
+    line g_line = na
+    line m_line = na
+    line r_line = na
+
+drawOrder(Order _order) =>
+    left = _order.left
+    right = _order.right
+    green_value = _order.green_value
+    middle_value = _order.middle_value
+    red_value = _order.red_value
+    oe = OrderElement.new()
+    oe.g_box := box.new(left, green_value, right, middle_value, xloc=xloc.bar_index, bgcolor = color.rgb(0, 228, 0, 81), border_color = color.rgb(0, 0, 0, 100))
+    oe.r_box := box.new(left, middle_value, right, red_value, xloc=xloc.bar_index, bgcolor = color.rgb(228, 0, 0, 81), border_color = color.rgb(0, 0, 0, 100))
+    oe.g_line := line.new(left, green_value, right, green_value, xloc=xloc.bar_index, color = color.white)
+    oe.m_line := line.new(left, middle_value, right, middle_value, xloc=xloc.bar_index, color = color.white)
+    oe.r_line := line.new(left, red_value, right, red_value, xloc=xloc.bar_index, color = color.white)
+    oe
+
+if barstate.isfirst
+    for _order in orders
+        drawOrder(_order)
+// ======================================================================================================================
